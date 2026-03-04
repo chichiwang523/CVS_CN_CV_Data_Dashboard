@@ -1,0 +1,17 @@
+[Unit]
+Description=China CV Dashboard (Streamlit)
+After=network.target
+
+[Service]
+Type=simple
+User=cvapp
+WorkingDirectory=/srv/china-cv-agent/app
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/china-cv-agent/app/.venv/bin/streamlit run dashboard/app.py --server.address 127.0.0.1 --server.port 8501 --server.headless true
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/china-cv-agent/dashboard.log
+StandardError=append:/var/log/china-cv-agent/dashboard.err.log
+
+[Install]
+WantedBy=multi-user.target

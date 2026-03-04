@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+
+# Large data
+CVdata/
+cache/
+output/
+
+# Data files
+*.parquet
+*.feather
+*.h5
+*.db
+*.sqlite
+
+# Exports
+*.xlsx
+*.xls
+*.csv
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

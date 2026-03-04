@@ -1,0 +1,17 @@
+[Unit]
+Description=China CV API (FastAPI/Uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=cvapp
+WorkingDirectory=/srv/china-cv-agent/app
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/china-cv-agent/app/.venv/bin/uvicorn api.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/china-cv-agent/api.log
+StandardError=append:/var/log/china-cv-agent/api.err.log
+
+[Install]
+WantedBy=multi-user.target

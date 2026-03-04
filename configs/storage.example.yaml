@@ -1,0 +1,22 @@
+# OSS 存储结构示例
+bucket: "oss://your-bucket-name/china-cv-agent"
+endpoint: "oss-cn-hangzhou.aliyuncs.com"
+
+paths:
+  raw: "raw/"
+  silver: "silver/"
+  gold: "gold/"
+  cache: "cache/"
+  output: "output/"
+
+sync:
+  default_mode: "only_cache"  # only_cache | full
+  include_patterns:
+    - "cache/all_batches_cleaned.parquet"
+  exclude_patterns:
+    - "*.tmp"
+    - "__pycache__/"
+
+retention:
+  backup_days: 14
+  keep_weekly: 8
