@@ -52,7 +52,7 @@ def abs_supplier_share_fast(df: pd.DataFrame) -> pd.DataFrame:
     combined = remarks + " " + abs_makers + " " + abs_field + " " + bridge
 
     supplier = pd.Series("未识别", index=has_abs.index)
-    supplier[combined.str.contains("威伯科|采埃孚|WABCO|ZF", case=False, regex=True)] = "ZF/威伯科"
+    supplier[combined.str.contains("威伯科|采埃孚|WABCO|ZF", case=False, regex=True)] = "ZF/采埃弗"
     mask_knorr = combined.str.contains("克诺尔|Knorr|东科克诺尔", case=False, regex=True)
     supplier[mask_knorr & (supplier == "未识别")] = "Knorr/克诺尔"
     mask_bosch = combined.str.contains("博世|Bosch", case=False, regex=True)
@@ -76,7 +76,7 @@ def abs_supplier_trend(df: pd.DataFrame) -> pd.DataFrame:
     combined = remarks + " " + abs_makers + " " + abs_field + " " + bridge
 
     supplier = pd.Series("其他", index=has_abs.index)
-    supplier[combined.str.contains("威伯科|采埃孚|WABCO|ZF", case=False, regex=True)] = "ZF/威伯科"
+    supplier[combined.str.contains("威伯科|采埃孚|WABCO|ZF", case=False, regex=True)] = "ZF/采埃弗"
     mask_knorr = combined.str.contains("克诺尔|Knorr|东科克诺尔", case=False, regex=True)
     supplier[mask_knorr & (supplier == "其他")] = "Knorr/克诺尔"
     mask_bosch = combined.str.contains("博世|Bosch", case=False, regex=True)
@@ -111,7 +111,7 @@ def ebs_penetration_trend(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def zf_product_breakdown(df: pd.DataFrame) -> pd.DataFrame:
-    """ZF/威伯科 ABS 产品型号分布。"""
+    """ZF/采埃弗 ABS 产品型号分布。"""
     zf = df[df["parsed_zf_mention"]].copy()
     models = zf["parsed_abs_models"].fillna("").astype(str)
     all_models = models[models != ""].str.split("|").explode()

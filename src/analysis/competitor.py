@@ -12,12 +12,12 @@ def competitor_mention_trend(df: pd.DataFrame) -> pd.DataFrame:
             "batch": batch,
             "batch_date": BATCH_DATES.get(batch, ""),
             "total": total,
-            "ZF/威伯科": g["parsed_zf_mention"].sum(),
+            "ZF/采埃弗": g["parsed_zf_mention"].sum(),
             "Bosch/博世": g["parsed_bosch_mention"].sum(),
             "Knorr/克诺尔": g["parsed_knorr_mention"].sum(),
         })
     out = pd.DataFrame(rows)
-    for col in ["ZF/威伯科", "Bosch/博世", "Knorr/克诺尔"]:
+    for col in ["ZF/采埃弗", "Bosch/博世", "Knorr/克诺尔"]:
         out[f"{col}_ratio"] = out[col] / out["total"]
     return out
 
@@ -29,12 +29,12 @@ def competitor_by_vehicle_category(df: pd.DataFrame) -> pd.DataFrame:
         rows.append({
             "vehicle_category": cat,
             "total": total,
-            "ZF/威伯科": g["parsed_zf_mention"].sum(),
+            "ZF/采埃弗": g["parsed_zf_mention"].sum(),
             "Bosch/博世": g["parsed_bosch_mention"].sum(),
             "Knorr/克诺尔": g["parsed_knorr_mention"].sum(),
         })
     out = pd.DataFrame(rows)
-    for col in ["ZF/威伯科", "Bosch/博世", "Knorr/克诺尔"]:
+    for col in ["ZF/采埃弗", "Bosch/博世", "Knorr/克诺尔"]:
         out[f"{col}_ratio"] = out[col] / out["total"]
     return out.sort_values("total", ascending=False)
 
@@ -48,7 +48,7 @@ def competitor_by_manufacturer(df: pd.DataFrame, n: int = 15) -> pd.DataFrame:
         rows.append({
             "manufacturer": mfr,
             "total": len(g),
-            "ZF/威伯科": g["parsed_zf_mention"].sum(),
+            "ZF/采埃弗": g["parsed_zf_mention"].sum(),
             "Bosch/博世": g["parsed_bosch_mention"].sum(),
             "Knorr/克诺尔": g["parsed_knorr_mention"].sum(),
         })

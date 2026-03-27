@@ -44,7 +44,7 @@ def export_excel(batch_start: int = None, batch_end: int = None, output_path: st
         energy_stats.to_excel(writer, sheet_name="能源类型统计", index=False)
 
         abs_stats = pd.DataFrame({
-            "指标": ["提及ABS", "提及EBS", "选装EBS", "ZF/威伯科提及", "Bosch提及", "Knorr提及"],
+            "指标": ["提及ABS", "提及EBS", "选装EBS", "ZF/采埃弗提及", "Bosch提及", "Knorr提及"],
             "数量": [
                 df["parsed_has_abs"].sum(),
                 df["parsed_has_ebs"].sum(),

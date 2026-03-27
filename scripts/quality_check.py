@@ -64,7 +64,7 @@ def run_quality_check():
     print("--- ABS/EBS 统计 ---")
     print(f"  提及 ABS: {df['parsed_has_abs'].sum():,} ({df['parsed_has_abs'].mean():.1%})")
     print(f"  提及 EBS: {df['parsed_has_ebs'].sum():,} ({df['parsed_has_ebs'].mean():.1%})")
-    print(f"  ZF/威伯科 提及: {df['parsed_zf_mention'].sum():,} ({df['parsed_zf_mention'].mean():.1%})")
+    print(f"  ZF/采埃弗 提及: {df['parsed_zf_mention'].sum():,} ({df['parsed_zf_mention'].mean():.1%})")
     print(f"  Bosch 提及: {df['parsed_bosch_mention'].sum():,} ({df['parsed_bosch_mention'].mean():.1%})")
     print(f"  Knorr 提及: {df['parsed_knorr_mention'].sum():,} ({df['parsed_knorr_mention'].mean():.1%})")
 

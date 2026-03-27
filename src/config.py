@@ -1,6 +1,7 @@
 """
 ZF 商用车公告数据分析平台 -- 全局配置
 """
+import os
 from pathlib import Path
 
 # ── 路径 ──────────────────────────────────────────────
@@ -53,7 +54,7 @@ ENERGY_TYPE_ORDER = [
 
 # ── 竞争对手关键词 ────────────────────────────────────
 COMPETITOR_KEYWORDS = {
-    "ZF/威伯科": ["威伯科", "采埃孚", "WABCO", "wabco", "ZF"],
+    "ZF/采埃弗": ["威伯科", "采埃孚", "WABCO", "wabco", "ZF"],
     "Knorr/克诺尔": ["克诺尔", "Knorr", "knorr", "东科克诺尔"],
     "Bosch/博世": ["博世", "Bosch", "bosch"],
     "瑞立科密": ["瑞立科密", "瑞立"],
@@ -152,3 +153,37 @@ PLOTLY_LAYOUT = dict(
     margin=dict(l=20, r=20, t=40, b=20),
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
 )
+
+# ── Dashboard 列裁剪 ─────────────────────────────────
+# 64 列中仅 46 列被 dashboard 实际使用；预加载时裁剪可节省 ~30% IO + ~35% 内存
+DASHBOARD_COLUMNS: list[str] = [
+    "batch", "model_code", "brand", "vehicle_type", "manufacturer",
+    "total_mass", "curb_weight", "length", "width", "emission_standard",
+    "engine_maker", "displacement", "power_kw",
+    "ABS_model", "ABS_maker", "transmission_type", "transmission_model",
+    "bridge_maker", "_remarks_raw",
+    "batch_date", "energy_clean",
+    "engine_maker_display", "manufacturer_display",
+    "vehicle_category", "mass_class",
+    "abs_maker_clean", "abs_maker_display", "bridge_maker_clean",
+    "parsed_abs_makers", "parsed_abs_models",
+    "parsed_has_abs", "parsed_has_ebs", "parsed_optional_ebs",
+    "parsed_zf_mention", "parsed_bosch_mention", "parsed_knorr_mention",
+    "parsed_motor_rated_kw", "parsed_motor_peak_kw",
+    "parsed_battery_chemistry", "parsed_battery_cell_makers",
+    "parsed_battery_pack_makers", "parsed_battery_kwh",
+    "parsed_tz_number", "parsed_tz_suffix_type", "parsed_tz_maker_code",
+    "parsed_drive_topology",
+]
+
+# ── 认证 ──────────────────────────────────────────────
+AUTH_DOMAIN = "zf.com"
+ADMIN_EMAILS: list[str] = ["xingchi.wang@zf.com"]
+USERS_JSON = PROJECT_ROOT / "data" / "users.json"
+
+# SMTP — 阿里云 DirectMail（从环境变量读取，未配置则降级为仅面板审批）
+SMTP_HOST = os.getenv("SMTP_HOST", "")
+SMTP_PORT = int(os.getenv("SMTP_PORT", "465"))
+SMTP_USER = os.getenv("SMTP_USER", "")
+SMTP_PASS = os.getenv("SMTP_PASS", "")
+SMTP_FROM = os.getenv("SMTP_FROM", "")
