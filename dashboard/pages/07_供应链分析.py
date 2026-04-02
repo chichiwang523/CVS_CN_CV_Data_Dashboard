@@ -10,7 +10,6 @@ from src.analysis.energy import battery_cell_suppliers, battery_pack_suppliers, 
 from src.charts import bar_h, pie_chart, line_chart, ZF_COLORS
 from src.config import BATCH_DATES
 
-st.set_page_config(page_title="供应链分析", layout="wide")
 st.markdown("# 🔗 供应链分析 Supply Chain")
 
 df_f = apply_sidebar_filters(default_batch_window=24)

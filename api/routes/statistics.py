@@ -89,7 +89,7 @@ def competitor_mentions(
     return {
         "total_records": len(df),
         "data": {
-            "ZF/采埃弗": int(df["parsed_zf_mention"].sum()),
+            "ZF/采埃孚": int(df["parsed_zf_mention"].sum()),
             "Bosch/博世": int(df["parsed_bosch_mention"].sum()),
             "Knorr/克诺尔": int(df["parsed_knorr_mention"].sum()),
         },

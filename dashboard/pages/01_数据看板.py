@@ -17,7 +17,6 @@ from src.charts import (
     ZF_COLORS, ZF_BLUE, PLOTLY_LAYOUT, _apply_layout,
 )
 
-st.set_page_config(page_title="Dashboard", layout="wide")
 st.markdown("# 📊 Dashboard")
 
 df_f = apply_sidebar_filters(default_batch_window=12)

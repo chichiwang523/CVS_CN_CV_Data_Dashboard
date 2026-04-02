@@ -78,22 +78,34 @@ def build_raw_parquet(force: bool = False) -> Path:
     return RAW_PARQUET
 
 
-def load_raw(batches: Optional[list[int]] = None) -> pd.DataFrame:
-    """加载原始 Parquet，可选按批次筛选。"""
+def load_raw(
+    batches: Optional[list[int]] = None,
+    columns: Optional[list[str]] = None,
+) -> pd.DataFrame:
+    """加载原始 Parquet，可选按批次筛选与列裁剪。"""
     if not RAW_PARQUET.exists():
         build_raw_parquet()
-    df = pd.read_parquet(RAW_PARQUET)
+    df = pd.read_parquet(RAW_PARQUET, columns=columns, dtype_backend="pyarrow")
     if batches:
         df = df[df["batch"].isin(batches)]
     return df
 
 
-def load_cleaned(batches: Optional[list[int]] = None) -> pd.DataFrame:
-    """加载清洗后 Parquet；若不存在则先跑清洗流水线。"""
+def load_cleaned(
+    batches: Optional[list[int]] = None,
+    columns: Optional[list[str]] = None,
+) -> pd.DataFrame:
+    """加载清洗后 Parquet；可选按批次筛选与列裁剪。
+
+    Parameters
+    ----------
+    columns : list[str] | None
+        仅读取指定列（Parquet 列式存储下可跳过不需要的列，大幅减少 IO 和内存）。
+    """
     if not CLEANED_PARQUET.exists():
         from src.data_cleaner import run_full_clean
         run_full_clean()
-    df = pd.read_parquet(CLEANED_PARQUET)
+    df = pd.read_parquet(CLEANED_PARQUET, columns=columns, dtype_backend="pyarrow")
     if batches:
         df = df[df["batch"].isin(batches)]
     return df

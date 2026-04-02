@@ -12,7 +12,7 @@ from src.analysis.competitor import (
 from src.charts import line_chart, grouped_bar, bar_h, ZF_COLORS
 
 st.markdown("# 🏭 竞争对手分析 Competitor Analysis")
-st.caption("ZF/采埃弗 vs Bosch/博世 vs Knorr/克诺尔 — 基于公告备注提及频次")
+st.caption("ZF/采埃孚 vs Bosch/博世 vs Knorr/克诺尔 — 基于公告备注提及频次")
 
 df_f = apply_sidebar_filters(default_batch_window=24)
 
@@ -29,7 +29,7 @@ b_min, b_max = int(df_f["batch"].min()), int(df_f["batch"].max())
 st.subheader("竞争对手提及率趋势")
 trend = competitor_mention_trend(df_trend)
 trend_range = trend[trend["batch"].between(b_min, b_max)]
-cols = ["ZF/采埃弗_ratio", "Bosch/博世_ratio", "Knorr/克诺尔_ratio"]
+cols = ["ZF/采埃孚_ratio", "Bosch/博世_ratio", "Knorr/克诺尔_ratio"]
 melted = trend_range.melt(id_vars=["batch_date"], value_vars=cols, var_name="competitor", value_name="ratio")
 melted["competitor"] = melted["competitor"].str.replace("_ratio", "")
 fig = line_chart(melted, x="batch_date", y="ratio", color="competitor", height=420)
@@ -39,7 +39,7 @@ st.plotly_chart(fig, use_container_width=True)
 # ── 按车辆类型 ──
 st.subheader("竞争对手 × 车辆大类")
 by_cat = competitor_by_vehicle_category(df_f)
-cols_abs = ["ZF/采埃弗", "Bosch/博世", "Knorr/克诺尔"]
+cols_abs = ["ZF/采埃孚", "Bosch/博世", "Knorr/克诺尔"]
 melted_cat = by_cat.melt(id_vars=["vehicle_category"], value_vars=cols_abs,
                           var_name="competitor", value_name="count")
 fig = grouped_bar(melted_cat, x="vehicle_category", y="count", color="competitor",

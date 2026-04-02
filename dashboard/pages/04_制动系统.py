@@ -12,7 +12,7 @@ from src.analysis.braking import (
 from src.charts import pie_chart, line_chart, dual_axis_chart, bar_h, area_chart, ZF_COLORS
 
 st.markdown("# 🛑 制动系统分析 Braking System")
-st.caption("ABS/EBS 市场份额 — ZF/采埃弗 vs Bosch/博世 vs Knorr/克诺尔")
+st.caption("ABS/EBS 市场份额 — ZF/采埃孚 vs Bosch/博世 vs Knorr/克诺尔")
 
 df_f = apply_sidebar_filters(default_batch_window=24)
 
@@ -45,7 +45,7 @@ st.markdown("---")
 st.subheader("ABS 供应商份额趋势")
 trend_df = abs_supplier_trend(df_trend)
 trend_range = trend_df[trend_df["batch"].between(b_min, b_max)]
-main_suppliers = ["ZF/采埃弗", "Knorr/克诺尔", "Bosch/博世", "瑞立科密", "万安科技"]
+main_suppliers = ["ZF/采埃孚", "Knorr/克诺尔", "Bosch/博世", "瑞立科密", "万安科技"]
 trend_main = trend_range[trend_range["abs_supplier"].isin(main_suppliers)]
 fig = line_chart(trend_main, x="batch_date", y="ratio", color="abs_supplier",
                  title="", height=420)
@@ -64,7 +64,7 @@ with col3:
     st.plotly_chart(fig, use_container_width=True)
 
 with col4:
-    st.subheader("ZF/采埃弗 ABS 产品型号 Top 15")
+    st.subheader("ZF/采埃孚 ABS 产品型号 Top 15")
     zf_models = zf_product_breakdown(df_f)
     if len(zf_models) > 0:
         fig = bar_h(zf_models, x="count", y="model", height=400)

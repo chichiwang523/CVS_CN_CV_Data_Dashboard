@@ -20,9 +20,10 @@ _SS_SINGLE  = "sidebar_batch_single"
 def _load():
     from src.data_loader import load_cleaned, CLEANED_PARQUET
     from src.data_cleaner import run_full_clean
+    from src.config import DASHBOARD_COLUMNS
     if not CLEANED_PARQUET.exists():
         run_full_clean()
-    return load_cleaned()
+    return load_cleaned(columns=DASHBOARD_COLUMNS)
 
 
 def _init_state(min_b: int, max_b: int, default_batch_window: int):

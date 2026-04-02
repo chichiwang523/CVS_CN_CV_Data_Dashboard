@@ -19,7 +19,6 @@ from src.charts import (
     line_chart, grouped_bar, ZF_BLUE, ZF_COLORS,
 )
 
-st.set_page_config(page_title="电动化分析", layout="wide")
 st.markdown("# 🔋 电动化分析 Electrification")
 
 df_f = apply_sidebar_filters(default_batch_window=24)

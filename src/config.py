@@ -54,7 +54,7 @@ ENERGY_TYPE_ORDER = [
 
 # ── 竞争对手关键词 ────────────────────────────────────
 COMPETITOR_KEYWORDS = {
-    "ZF/采埃弗": ["威伯科", "采埃孚", "WABCO", "wabco", "ZF"],
+    "ZF/采埃孚": ["威伯科", "采埃孚", "WABCO", "wabco", "ZF"],
     "Knorr/克诺尔": ["克诺尔", "Knorr", "knorr", "东科克诺尔"],
     "Bosch/博世": ["博世", "Bosch", "bosch"],
     "瑞立科密": ["瑞立科密", "瑞立"],

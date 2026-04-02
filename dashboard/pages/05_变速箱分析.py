@@ -10,7 +10,6 @@ from src.analysis.transmission import (
 )
 from src.charts import pie_chart, grouped_bar, line_chart, bar_h
 
-st.set_page_config(page_title="变速箱分析", layout="wide")
 st.markdown("# ⚙️ 变速箱分析 Transmission")
 
 df_f = apply_sidebar_filters(default_batch_window=24)

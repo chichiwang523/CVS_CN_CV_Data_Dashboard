@@ -12,7 +12,6 @@ from src.analysis.market import (
 )
 from src.charts import area_chart, pie_chart, bar_h, line_chart, grouped_bar, ZF_COLORS
 
-st.set_page_config(page_title="市场趋势", layout="wide")
 st.markdown("# 📈 市场趋势 Market Trends")
 
 df_f = apply_sidebar_filters(default_batch_window=24)

@@ -1,0 +1,41 @@
+{
+  "admin_emails": ["xingchi.wang@zf.com"],
+  "users": {
+    "xingchi.wang@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "admin"
+    },
+    "weijun.han@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "user"
+    },
+    "tom.yin@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "user"
+    },
+    "sujie.yu@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "user"
+    },
+    "joyce.chen@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "user"
+    },
+    "marvin.zhu@zf.com": {
+      "status": "approved",
+      "requested_at": "2026-03-11T00:00:00",
+      "approved_by": "system",
+      "role": "user"
+    }
+  }
+}

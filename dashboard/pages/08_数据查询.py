@@ -7,7 +7,6 @@ import streamlit as st
 import pandas as pd
 from dashboard.sidebar import apply_sidebar_filters
 
-st.set_page_config(page_title="数据查询", layout="wide")
 st.markdown("# 📋 数据查询 Data Explorer")
 
 df_f = apply_sidebar_filters(default_batch_window=6)
