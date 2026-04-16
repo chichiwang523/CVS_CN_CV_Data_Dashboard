@@ -341,21 +341,37 @@ def render_login_form():
 
         tab_login, tab_register, tab_setpw = st.tabs(["🔑 登录", "📝 注册", "🔐 设置密码"])
 
+        # 阻止浏览器自动填充导致表单异常提交
+        st.markdown(
+            '<style>input{autocomplete:off !important;}</style>',
+            unsafe_allow_html=True,
+        )
+
         # ── Tab 1: 登录 ──
         with tab_login:
             with st.form("login_form", clear_on_submit=False):
                 account = st.text_input(
                     "邮箱 / 手机号",
                     placeholder="your.name@zf.com 或管理员手机号",
+                    autocomplete="off",
                 ).strip()
                 password = st.text_input(
                     "密码",
                     type="password",
                     placeholder="请输入密码",
+                    autocomplete="new-password",
                 )
                 submitted = st.form_submit_button("登 录", use_container_width=True, type="primary")
 
             if submitted:
+                # 防止回车键在邮箱框就提交（密码为空）
+                if not account:
+                    st.warning("请输入邮箱或手机号")
+                    return
+                if not password:
+                    st.warning("请输入密码")
+                    return
+
                 email = _resolve_input(account)
                 if email is None:
                     if account.strip().isdigit():
