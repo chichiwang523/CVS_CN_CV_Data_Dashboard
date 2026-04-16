@@ -178,8 +178,8 @@ DASHBOARD_COLUMNS: list[str] = [
 
 # ── 认证 ──────────────────────────────────────────────
 AUTH_DOMAIN = "zf.com"
-ADMIN_EMAILS: list[str] = ["xingchi.wang@zf.com", "13948301527@139.com"]
-ADMIN_PHONE_MAP: dict[str, str] = {"13248301527": "13948301527@139.com"}
+ADMIN_EMAILS: list[str] = ["xingchi.wang@zf.com", "13248301527@139.com"]
+ADMIN_PHONE_MAP: dict[str, str] = {"13248301527": "13248301527@139.com"}
 USERS_JSON = PROJECT_ROOT / "data" / "users.json"
 LOGIN_LOG = PROJECT_ROOT / "data" / "login_log.jsonl"
 

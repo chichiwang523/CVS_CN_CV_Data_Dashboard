@@ -1,5 +1,5 @@
 {
-  "admin_emails": ["xingchi.wang@zf.com", "13948301527@139.com"],
+  "admin_emails": ["xingchi.wang@zf.com", "13248301527@139.com"],
   "users": {
     "xingchi.wang@zf.com": {
       "status": "active",
@@ -9,7 +9,7 @@
       "password_hash": "5a60b81a1d66a7c6809cdc11887dbefd057b4d7549a5ce28caab8c52b5b5adb8",
       "salt": "cd8332f789d09e60f5bf55a161be9fdb"
     },
-    "13948301527@139.com": {
+    "13248301527@139.com": {
       "status": "active",
       "requested_at": "2026-04-16T00:00:00",
       "approved_by": "system",
