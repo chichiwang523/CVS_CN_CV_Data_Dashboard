@@ -4,7 +4,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 import streamlit as st
-from dashboard.auth import UserStore, get_current_user, is_current_user_admin, get_login_log
+from dashboard.auth import (
+    UserStore,
+    get_current_user,
+    get_login_log,
+    is_current_user_admin,
+    notify_user_added,
+    notify_user_approved,
+    notify_user_password_reset,
+    notify_user_rejected,
+)
 
 # ── 权限检查 ──
 
@@ -37,11 +46,13 @@ with tab_pending:
                 c1.caption(f"申请时间: {info.get('requested_at', 'N/A')[:19]}")
                 if c2.button("✅ 批准", key=f"approve_{email}", use_container_width=True):
                     store.approve(email, admin_email)
-                    st.toast(f"已批准 {email}", icon="✅")
+                    notified = notify_user_approved(email, admin_email)
+                    st.toast(f"已批准 {email}" + ("，已邮件通知" if notified else "，邮件未发送"), icon="✅")
                     st.rerun()
                 if c3.button("❌ 拒绝", key=f"reject_{email}", use_container_width=True):
                     store.reject(email, admin_email)
-                    st.toast(f"已拒绝 {email}", icon="❌")
+                    notified = notify_user_rejected(email, admin_email)
+                    st.toast(f"已拒绝 {email}" + ("，已邮件通知" if notified else "，邮件未发送"), icon="❌")
                     st.rerun()
 
 # ── Tab 2: 已批准 ──
@@ -84,7 +95,8 @@ with tab_rejected:
                 c1.caption(f"操作人: {info.get('approved_by', 'N/A')}")
                 if c2.button("重新批准", key=f"reapprove_{email}", use_container_width=True):
                     store.approve(email, admin_email)
-                    st.toast(f"已重新批准 {email}", icon="✅")
+                    notified = notify_user_approved(email, admin_email)
+                    st.toast(f"已重新批准 {email}" + ("，已邮件通知" if notified else "，邮件未发送"), icon="✅")
                     st.rerun()
 
 # ── Tab 4: 添加用户 ──
@@ -105,7 +117,11 @@ with tab_add:
             st.info(f"ℹ️ {new_email} 已是已批准用户")
         else:
             store.add_approved(new_email, admin_email)
-            st.success(f"✅ 已添加并批准 {new_email}（用户首次登录需设密码）")
+            notified = notify_user_added(new_email, admin_email)
+            if notified:
+                st.success(f"✅ 已添加并批准 {new_email}，已邮件通知用户设置密码")
+            else:
+                st.warning(f"✅ 已添加并批准 {new_email}，但邮件未发送；请手动通知用户设置密码")
             st.rerun()
 
 # ── Tab 5: 登录记录 ──
@@ -206,5 +222,6 @@ with tab_resetpw:
                     c1.caption(f"当前状态: 已设密码")
                     if c2.button("重置密码", key=f"reset_{email}", use_container_width=True):
                         store.reset_password(email)
-                        st.toast(f"已重置 {email} 的密码", icon="🔄")
+                        notified = notify_user_password_reset(email, admin_email)
+                        st.toast(f"已重置 {email} 的密码" + ("，已邮件通知" if notified else "，邮件未发送"), icon="🔄")
                         st.rerun()

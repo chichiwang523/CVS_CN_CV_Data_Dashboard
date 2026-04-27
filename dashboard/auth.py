@@ -282,15 +282,79 @@ def _send_email(to: str, subject: str, body: str) -> bool:
 def notify_admin_new_request(applicant_email: str):
     """向所有管理员发送新用户申请通知。"""
     subject = f"[CV Data Platform] 新用户申请 — {applicant_email}"
+    url = _platform_url()
     body = f"""
     <h3>新用户访问申请</h3>
     <p><strong>申请邮箱：</strong>{applicant_email}</p>
     <p><strong>申请时间：</strong>{datetime.now().strftime('%Y-%m-%d %H:%M')}</p>
     <hr>
-    <p>请登录 <a href="http://139.224.204.17">CV Data Platform 管理面板</a> 进行审批。</p>
+    <p>请登录 <a href="{url}">CV Data Platform 管理面板</a> 进行审批。</p>
     """
     for admin in ADMIN_EMAILS:
         _send_email(admin, subject, body)
+
+
+def _platform_url() -> str:
+    """返回平台访问地址，可通过环境变量 PLATFORM_URL 覆盖。"""
+    return os.getenv("PLATFORM_URL", "http://139.224.204.17")
+
+
+def notify_user_approved(user_email: str, approver: str) -> bool:
+    """通知用户其访问申请已批准，需要设置密码。"""
+    subject = "[CV Data Platform] 访问申请已批准"
+    url = _platform_url()
+    body = f"""
+    <h3>您的访问申请已批准</h3>
+    <p><strong>账号：</strong>{user_email}</p>
+    <p><strong>审批人：</strong>{approver}</p>
+    <hr>
+    <p>请访问 <a href="{url}">CV Data Platform</a>，点击「设置密码」选项卡完成首次密码设置，然后返回「登录」使用。</p>
+    <p>如果链接无法点击，请复制地址到浏览器：{url}</p>
+    """
+    return _send_email(user_email, subject, body)
+
+
+def notify_user_rejected(user_email: str, approver: str) -> bool:
+    """通知用户其访问申请被拒绝。"""
+    subject = "[CV Data Platform] 访问申请未通过"
+    body = f"""
+    <h3>您的访问申请未通过</h3>
+    <p><strong>账号：</strong>{user_email}</p>
+    <p><strong>处理人：</strong>{approver}</p>
+    <hr>
+    <p>如有疑问，请联系平台管理员。</p>
+    """
+    return _send_email(user_email, subject, body)
+
+
+def notify_user_added(user_email: str, approver: str) -> bool:
+    """通知管理员直接添加的用户设置密码。"""
+    subject = "[CV Data Platform] 您已被添加为授权用户"
+    url = _platform_url()
+    body = f"""
+    <h3>您已被添加为授权用户</h3>
+    <p><strong>账号：</strong>{user_email}</p>
+    <p><strong>添加人：</strong>{approver}</p>
+    <hr>
+    <p>请访问 <a href="{url}">CV Data Platform</a>，点击「设置密码」选项卡完成首次密码设置，然后返回「登录」使用。</p>
+    <p>如果链接无法点击，请复制地址到浏览器：{url}</p>
+    """
+    return _send_email(user_email, subject, body)
+
+
+def notify_user_password_reset(user_email: str, approver: str) -> bool:
+    """通知用户密码已被管理员重置，需要重新设置。"""
+    subject = "[CV Data Platform] 密码已重置"
+    url = _platform_url()
+    body = f"""
+    <h3>您的密码已被重置</h3>
+    <p><strong>账号：</strong>{user_email}</p>
+    <p><strong>操作人：</strong>{approver}</p>
+    <hr>
+    <p>请访问 <a href="{url}">CV Data Platform</a>，点击「设置密码」选项卡重新设置密码。</p>
+    <p>如果链接无法点击，请复制地址到浏览器：{url}</p>
+    """
+    return _send_email(user_email, subject, body)
 
 
 # ── 输入解析 ─────────────────────────────────────────
