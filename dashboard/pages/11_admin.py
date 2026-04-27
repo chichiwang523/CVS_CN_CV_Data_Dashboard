@@ -28,12 +28,13 @@ st.markdown("# 🔐 用户管理")
 st.caption(f"当前管理员: {admin_email}")
 
 tab_pending, tab_approved, tab_rejected, tab_add, tab_log, tab_changepw, tab_resetpw = st.tabs(
-    ["⏳ 待审批", "✅ 已批准", "❌ 已拒绝", "➕ 添加用户", "📋 登录记录", "🔑 修改密码", "🔄 重置密码"]
+    ["⏳ 待审批", "✅ 已批准", "❌ 已拒绝", "➕ 添加用户", "📋 登录记录", "🔑 修改密码", "🆘 忘记密码"]
 )
 
 # ── Tab 1: 待审批 ──
 
 with tab_pending:
+    st.info("正常流程：管理员点击“批准”后，用户会进入待设密码状态；后续由用户自行在登录页“设置密码”。")
     pending = store.list_by_status("pending")
     if not pending:
         st.success("没有待审批的用户 🎉")
@@ -200,11 +201,11 @@ with tab_changepw:
             store.set_password(admin_email, new_pw)
             st.success("✅ 密码已修改")
 
-# ── Tab 7: 重置用户密码 ──
+# ── Tab 7: 忘记密码应急重置 ──
 
 with tab_resetpw:
-    st.markdown("### 🔄 重置用户密码")
-    st.caption('重置后用户状态回到「待设密码」，下次登录时须重新设置密码。')
+    st.markdown("### 🆘 忘记密码应急处理")
+    st.caption('这不是审批流程必需步骤。仅当用户忘记密码时使用；重置后用户状态回到「待设密码」，用户自行重新设置密码。')
 
     active_users = {
         e: u for e, u in store.list_approved_and_active().items()
